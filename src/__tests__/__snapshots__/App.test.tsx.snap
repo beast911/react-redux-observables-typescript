@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check render of App Component with store renders without crashing 1`] = `
+<div
+  className="makeStyles-backgroundContainer-5"
+>
+  <div
+    className="makeStyles-container-1"
+  >
+    <div
+      className="MuiPaper-root MuiPaper-elevation1 makeStyles-paper-3 MuiPaper-rounded"
+    >
+      <div
+        style={
+          Object {
+            "alignSelf": "center",
+            "display": "grid",
+            "gridRow": "2",
+            "justifySelf": "center",
+          }
+        }
+      >
+        <img
+          alt="logo"
+          src="test-file-stub"
+          style={
+            Object {
+              "alignSelf": "center",
+              "justifySelf": "center",
+              "width": "50px",
+            }
+          }
+        />
+        <h5
+          className="MuiTypography-root MuiTypography-h5"
+        >
+          Platter
+        </h5>
+      </div>
+      <div
+        className="MuiFormControl-root MuiTextField-root WithStyles(ForwardRef(TextField))-root-63 makeStyles-margin-2"
+        style={
+          Object {
+            "gridRow": "3",
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+          data-shrink={false}
+          htmlFor="validation-outlined-input"
+          id="validation-outlined-input-label"
+        >
+          Username
+          <span
+            className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             
+            *
+          </span>
+        </label>
+        <div
+          className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiOutlinedInput-input"
+            disabled={false}
+            id="validation-outlined-input"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={true}
+            type="text"
+          />
+          <fieldset
+            aria-hidden={true}
+            className="PrivateNotchedOutline-root-124 MuiOutlinedInput-notchedOutline"
+            style={
+              Object {
+                "paddingLeft": 8,
+              }
+            }
+          >
+            <legend
+              className="PrivateNotchedOutline-legend-125"
+              style={
+                Object {
+                  "width": 0.01,
+                }
+              }
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&#8203;",
+                  }
+                }
+              />
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root MuiTextField-root WithStyles(ForwardRef(TextField))-root-63 makeStyles-margin-2"
+        style={
+          Object {
+            "gridRow": "4",
+          }
+        }
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-required Mui-required"
+          data-shrink={false}
+          htmlFor="validation-outlined-input"
+          id="validation-outlined-input-label"
+        >
+          Password
+          <span
+            className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+          >
+             
+            *
+          </span>
+        </label>
+        <div
+          className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiOutlinedInput-input"
+            disabled={false}
+            id="validation-outlined-input"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={true}
+            type="password"
+          />
+          <fieldset
+            aria-hidden={true}
+            className="PrivateNotchedOutline-root-124 MuiOutlinedInput-notchedOutline"
+            style={
+              Object {
+                "paddingLeft": 8,
+              }
+            }
+          >
+            <legend
+              className="PrivateNotchedOutline-legend-125"
+              style={
+                Object {
+                  "width": 0.01,
+                }
+              }
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&#8203;",
+                  }
+                }
+              />
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-margin-2 MuiButton-containedPrimary"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        style={
+          Object {
+            "gridRow": "6",
+          }
+        }
+        tabIndex={0}
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Login
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
