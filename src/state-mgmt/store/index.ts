@@ -1,54 +1,54 @@
-import { systemReducer } from "./system/reducers";
-import { combineReducers, createStore, compose, applyMiddleware } from "redux";
+import systemReducer, { requestLoginAction, requestLoginSuccessAction, requestCurrentUserActionSuccess, requestLoginActionFailure } from "./system/slice";
+import { propertiesReducer } from "./properties/reducers";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createBrowserHistory } from "history";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { doLoginEpic } from "./system/epics";
+import { doLoginEpic, getCurrectUserEpic } from "./system/epics";
+import { getPropertiesEpic } from "./properties/epics";
 import { ActionType } from "typesafe-actions";
-import * as systemActions from "./system/actions";
-import { ISystemState } from "./system/types";
-import { connectRouter, routerMiddleware, RouterState } from 'connected-react-router'
+import * as propertiesActions from "./properties/actions";
+import {
+  connectRouter,
+  routerMiddleware,
+  RouterState
+} from "connected-react-router";
 
-type SystemActions = ActionType<typeof systemActions>;
+type SystemActionsWithPayload =
+  | typeof requestLoginAction
+  | typeof requestLoginSuccessAction
+  | typeof requestCurrentUserActionSuccess
+  | typeof requestLoginActionFailure;
 
-type finalActions = SystemActions;
+type SystemActions = ActionType<SystemActionsWithPayload>;
+type PropertiesActions = ActionType<typeof propertiesActions>;
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-  }
-}
-interface StoreEnhancerState {}
-export interface RootState extends StoreEnhancerState {
-  router: RouterState;
-  system: ISystemState;
-}
+type finalActions = SystemActions | PropertiesActions;
 
-
-
-const composeEnhancers =
-  (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-
-const epics = combineEpics(doLoginEpic);
+const epics = combineEpics(doLoginEpic, getCurrectUserEpic, getPropertiesEpic);
 
 export const history = createBrowserHistory<RouterState>();
 export const rootReducer = combineReducers({
   router: connectRouter(history),
-  system: systemReducer
+  system: systemReducer,
+  properties: propertiesReducer
 });
+export type RootState = ReturnType<typeof rootReducer>;
 const epicMiddleware = createEpicMiddleware<
-  finalActions,
-  finalActions,
+  finalActions, // input actions
+  finalActions, // output actions
   RootState
 >();
 
-function configureStore(initialState?: any) {
+function configureAppStore(initialState?: any) {
   // configure middlewares
   const middlewares = [routerMiddleware(history), epicMiddleware];
-  // compose enhancers
-  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   // create store
-  return createStore(rootReducer, initialState!, enhancer);
+  return configureStore<RootState>({
+    reducer: rootReducer,
+    middleware: middlewares,
+    preloadedState: initialState
+  });
 }
 
-export const store = configureStore();
+export const store = configureAppStore();
 epicMiddleware.run(epics);
