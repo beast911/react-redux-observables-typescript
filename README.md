@@ -8,6 +8,7 @@
 - redux-observable ( https://github.com/mitsuruog/react-redux-observable-typescript-sample, https://redux-observable.js.org/docs/basics/Epics.html )
 - material-ui ( https://material-ui.com/components/box/ )
 - CSS Grid ( https://css-tricks.com/snippets/css/complete-guide-grid/ )
+- Redux toolkit ( https://redux-toolkit.js.org/ )
 
 ## Code Structure
 I recommend going through the code as it is pretty self explanatory and requires no prior knowledge of design patterns to understand.
@@ -21,53 +22,35 @@ Application state is split mainly in three parts.
 Each state structure will be defined by application requirements under that state.
 Fundamental pieces to build partial root state are:
 
-- actions
-- reducers
+- slice
 - epics
 - types
 
-## *actions*
-All of actions possible under that partial root state shall be placed here. Example:
+## *slices*
+All of actions possible under that partial root state shall be placed here. This slice will create Reducer and its corresponding actions. Example:
 
 ```javascript
-export const requestLoginAction = createAction(
-  REQUEST_LOGIN,
-  (loginInfo: IUserInput) => loginInfo
-)<IUserInput>();
-```
-## *reducers*
-A reducer will know which part of the state to update based on the actions. Example: 
-```javascript
-export const systemReducer = (
-  state: ISystemState | ICurrentUser = initState,
-  action: Action
-): ISystemState | ICurrentUser => {
-  switch (action.type) {
-    case getType(requestLoginAction): {
-      return {
-        ...state
-      };
-    }
-
-    case getType(requestLoginActionSuccess): {
-      return {
-        ...state,
-        admin: action.payload.admin,
-        status: action.payload.status,
-        token: action.payload.token
-      };
-    }
-
-    case getType(requestCurrentUserActionSuccess): {
-      return {
-        ...state,
-        name: action.payload.name
-      };
-    }
-    default:
-      return state;
+const systemSlice = createSlice({
+  name: "system",
+  initialState: initState as SliceState,
+  reducers: {
+    requestLoginAction: (state, action: PayloadAction<IUserInput>) => {},
+    requestLoginSuccessAction: (state, action: PayloadAction<ISystemState>) => {
+      const { admin, status, token } = action.payload;
+      state.admin = admin;
+      state.status = status;
+      state.token = token;
+    },
+    requestCurrentUserActionSuccess: (
+      state,
+      action: PayloadAction<ICurrentUser>
+    ) => {
+      const name = action.payload.name;
+      state.name = name;
+    },
+    requestLoginActionFailure: (state, action: PayloadAction<Error>) => {}
   }
-};
+});
 ```
 ## *epics*
 This is very redux-observable specific. I recommend going through RxJS first before understanding this. Refer the documentation links given above. Example code:

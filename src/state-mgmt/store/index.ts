@@ -1,12 +1,10 @@
 import systemReducer, { requestLoginAction, requestLoginSuccessAction, requestCurrentUserActionSuccess, requestLoginActionFailure } from "./system/slice";
-import { propertiesReducer } from "./properties/reducers";
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createBrowserHistory } from "history";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { doLoginEpic, getCurrectUserEpic } from "./system/epics";
-import { getPropertiesEpic } from "./properties/epics";
+import { doLoginEpic } from "./system/epics";
 import { ActionType } from "typesafe-actions";
-import * as propertiesActions from "./properties/actions";
 import {
   connectRouter,
   routerMiddleware,
@@ -20,17 +18,15 @@ type SystemActionsWithPayload =
   | typeof requestLoginActionFailure;
 
 type SystemActions = ActionType<SystemActionsWithPayload>;
-type PropertiesActions = ActionType<typeof propertiesActions>;
 
-type finalActions = SystemActions | PropertiesActions;
+type finalActions = SystemActions;
 
-const epics = combineEpics(doLoginEpic, getCurrectUserEpic, getPropertiesEpic);
+const epics = combineEpics(doLoginEpic);
 
 export const history = createBrowserHistory<RouterState>();
 export const rootReducer = combineReducers({
   router: connectRouter(history),
   system: systemReducer,
-  properties: propertiesReducer
 });
 export type RootState = ReturnType<typeof rootReducer>;
 const epicMiddleware = createEpicMiddleware<

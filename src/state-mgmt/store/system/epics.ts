@@ -14,7 +14,7 @@ import { RootState } from "../index";
 
 import { Observable } from "rxjs/Observable";
 
-import { doLogin, getCurrentUser } from "../../../services/api/api";
+import { doSomething } from "../../../services/api/api";
 
 type SourceActions =
   | typeof requestLoginAction
@@ -26,22 +26,8 @@ export const doLoginEpic: Epic<Action, Action, RootState> = action$ =>
   action$.pipe(
     filter(requestLoginAction.match),
     switchMap<Action, Observable<Action>>(action =>
-      defer(() => from(doLogin(action.payload))).pipe(
+      defer(() => from(doSomething(action.payload))).pipe(
         map(requestLoginSuccessAction),
-        catchError(error => of(requestLoginActionFailure(error)))
-      )
-    )
-  );
-
-export const getCurrectUserEpic: Epic<Action, Action, RootState> = (
-  action$,
-  state$
-) =>
-  action$.pipe(
-    filter(requestLoginSuccessAction.match),
-    switchMap<Action, Observable<Action>>(action =>
-      defer(() => from(getCurrentUser(state$.value.system))).pipe(
-        map(requestCurrentUserActionSuccess),
         catchError(error => of(requestLoginActionFailure(error)))
       )
     )
